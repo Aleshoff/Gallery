@@ -12,9 +12,11 @@ function App() {
   event.preventDefault();
   console.log(word);
   fetch(`https://api.unsplash.com/photos/random/?query=${word}&client_id=${UNSPLASH_KEY}`)
-  .then((response) => response.json())
-  .then((data) => console.log(data))
-  .catch((error) => console.log(error));
+    .then((response) => response.json())
+    .then((data) => console.log(data))
+    .catch((error) => console.log(error));
+  
+  setWord('');
   };
   //console.log(word);
   //console.log(UNSPLASH_KEY);
