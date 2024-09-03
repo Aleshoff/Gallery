@@ -7,6 +7,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import Welcome from "./components/Welcome";
 
 const UNSPLASH_KEY = process.env.REACT_APP_UNSPLASH_KEY;
+const API_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:5050";
 
 function App() {
   const [word, setWord] = useState("");
@@ -18,7 +19,7 @@ function App() {
     event.preventDefault();
     //console.log(word);
     fetch(
-      `https://api.unsplash.com/photos/random/?query=${word}&client_id=${UNSPLASH_KEY}`
+      `${API_URL}/new-photo?query=${word}`
     )
       .then((response) => response.json())
       .then((data) => {
