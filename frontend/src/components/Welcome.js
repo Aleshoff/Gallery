@@ -11,7 +11,7 @@ const Welcome = () => (
       </Card.Text>
       <Container className="col-md-12 text-center">
         <Col >
-          <Button variant="primary" href="http://unsplash.com" target="_blank">
+          <Button variant="secondary" href="http://unsplash.com" target="_blank">
             Visit Unsplash
           </Button>
         </Col>
