@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
 import Header from "./components/Header";
 import Search from "./components/Search";
 import ImageCard from "./components/ImageCard";
@@ -15,17 +16,26 @@ function App() {
   const [images, setImiges] = useState([]);
   //console.log(images);
 
-  const handleSearchSubmit = (event) => {
+  const handleSearchSubmit = async (event) => {
     event.preventDefault();
     //console.log(word);
-    fetch(
-      `${API_URL}/new-photo?query=${word}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setImiges([{ ...data, title: word }, ...images]);
-      })
-      .catch((error) => console.log(error));
+    // fetch(
+    //   `${API_URL}/new-photo?query=${word}`
+    // )
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     setImiges([{ ...data, title: word }, ...images]);
+    //   })
+    //   .catch((error) => console.log(error));
+
+    
+    try {
+      const result = await axios.get(`${API_URL}/new-photo?query=${word}`);
+      setImiges([{ ...result.data, title: word }, ...images]);
+    }
+    catch (error) {
+      console.log(error);
+    }
 
     setWord("");
   };
