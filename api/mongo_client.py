@@ -16,8 +16,8 @@ mongo_client = MongoClient(
     port = MONGO_PORT
 )
 
-def insert_test_document():
-    db = mongo_client.test
-    test_collection = db.test_collection
-    result = test_collection.insert_one({"name": "Sasha", "student": True})
-    print(result)
+# def insert_test_document():
+#     db = mongo_client.test
+#     test_collection = db.test_collection
+#     result = test_collection.insert_one({"name": "Sasha", "student": True})
+#     print(result)
