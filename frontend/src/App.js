@@ -13,13 +13,13 @@ const API_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:5050";
 function App() {
   const [word, setWord] = useState("");
 
-  const [images, setImiges] = useState([]);
+  const [images, setImages] = useState([]);
   //console.log(images);
 
   const getSavedImages = async () => {
     try {
       const result = await axios.get(`${API_URL}/images`);
-      setImiges(result.data || []);
+      setImages(result.data || []);
     } catch (error) {
       console.log(error);
     }
@@ -35,14 +35,14 @@ function App() {
     // )
     //   .then((response) => response.json())
     //   .then((data) => {
-    //     setImiges([{ ...data, title: word }, ...images]);
+    //     setImages([{ ...data, title: word }, ...images]);
     //   })
     //   .catch((error) => console.log(error));
 
     
     try {
       const result = await axios.get(`${API_URL}/new-photo?query=${word}`);
-      setImiges([{ ...result.data, title: word }, ...images]);
+      setImages([{ ...result.data, title: word }, ...images]);
     }
     catch (error) {
       console.log(error);
@@ -52,7 +52,23 @@ function App() {
   };
 
   const handleDeleteImage = (id) => {
-    setImiges(images.filter((image) => image.id !== id));
+    setImages(images.filter((image) => image.id !== id));
+  };
+
+  const handleSavedImage = async (id) => {
+    const imageToSave = images.find((image) => image.id === id);
+    imageToSave.saved = true;
+
+    try {
+      const result = await axios.post(`${API_URL}/images`, imageToSave);
+      if(result.data?.inserted_id) {
+        setImages(images.map((image) => 
+          image.id === id ? {...image, saved: true} : image));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
   };
   //console.log(word);
   //console.log(UNSPLASH_KEY);
@@ -65,7 +81,10 @@ function App() {
           <Row xs={1} md={2} lg={3}>
             {images.map((image, i) => (
               <Col key={i} className="pb-3">
-                <ImageCard image={image} deleteImage={handleDeleteImage} />
+                <ImageCard 
+                image={image} 
+                deleteImage={handleDeleteImage} 
+                saveImage={handleSavedImage} />
               </Col>
             ))}
           </Row>
