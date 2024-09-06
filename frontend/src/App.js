@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import Header from "./components/Header";
@@ -15,6 +15,17 @@ function App() {
 
   const [images, setImiges] = useState([]);
   //console.log(images);
+
+  const getSavedImages = async () => {
+    try {
+      const result = await axios.get(`${API_URL}/images`);
+      setImiges(result.data || []);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect( () => {getSavedImages()}, []);
 
   const handleSearchSubmit = async (event) => {
     event.preventDefault();
