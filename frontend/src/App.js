@@ -25,7 +25,8 @@ function App() {
       const result = await axios.get(`${API_URL}/images`);
       setImages(result.data || []);
       setLoader(false);
-      toast.success("Saved Images Downloaded!");
+      toast.success("Saved Images Downloaded!", {
+        toastId: "custom-id-yes"});
     } catch (error) {
       console.log(error);
       toast.error(error.message);
