@@ -64,4 +64,4 @@ def delete_image(image_id):
         return {"deleted_id": image_id}
 
 if __name__ == "__main__":
-    app.run(host="164.92.238.136", port=5050)
+    app.run(host="0.0.0.0", port=5050)
