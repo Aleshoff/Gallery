@@ -1,6 +1,6 @@
 import os
 import requests
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, redirect
 from dotenv import load_dotenv
 from flask_cors import CORS
 from mongo_client import mongo_client
@@ -21,6 +21,10 @@ app = Flask(__name__)
 CORS(app)
 
 app.config["DEBUG"] = DEBUG
+
+@app.route("/")
+def initial():
+    return redirect("http://localhost:3000", code=302)
 
 @app.route("/new-photo")
 def new_photo():
