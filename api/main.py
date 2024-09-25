@@ -22,9 +22,9 @@ CORS(app)
 
 app.config["DEBUG"] = DEBUG
 
-@app.route("/")
-def initial():
-    return redirect("https://alolprojectspace.com/front", code=307)
+#@app.route("/")
+#def initial():
+#    return redirect("https://alolprojectspace.com/front", code=307)
 
 @app.route("/new-photo")
 def new_photo():
