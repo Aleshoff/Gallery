@@ -24,7 +24,7 @@ app.config["DEBUG"] = DEBUG
 
 @app.route("/")
 def initial():
-    return redirect("http://alolprojectspace.com/front", code=307)
+    return redirect("https://alolprojectspace.com/front", code=307)
 
 @app.route("/new-photo")
 def new_photo():
