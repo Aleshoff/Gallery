@@ -2,7 +2,7 @@ FROM python:3.10.11
 
 WORKDIR /app
 
-EXPOSE 5050
+EXPOSE 5051
 
 COPY Pipfile ./
 COPY Pipfile.lock ./
