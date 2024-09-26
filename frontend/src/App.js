@@ -11,7 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 //const UNSPLASH_KEY = process.env.REACT_APP_UNSPLASH_KEY;
-const API_URL = process.env.REACT_APP_API_URL || "https://alolprojectspace.com:5050";
+const API_URL = process.env.REACT_APP_API_URL || "https://alolprojectspace.com";
 
 function App() {
   const [word, setWord] = useState("");
