@@ -1,31 +1,37 @@
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import Header from "./components/Header";
 import Search from "./components/Search";
+import Login from "./components/Login";
 import ImageCard from "./components/ImageCard";
 import { Container, Row, Col } from "react-bootstrap";
 import Welcome from "./components/Welcome";
 import Spinner from "./components/Spinner";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import useToken from "./useToken";
+import SignUp from "./components/SignUp";
 
 //const UNSPLASH_KEY = process.env.REACT_APP_UNSPLASH_KEY;
 const API_URL = process.env.REACT_APP_API_URL || "https://alolprojectspace.com";
+
 
 function App() {
   const [word, setWord] = useState("");
   const [images, setImages] = useState([]);
   const [loader, setLoader] = useState(true);
-
+  const {token, setToken} = useToken();
+  const [isSignUped, setIsSignUped] = useState(true);
+  
   //console.log(images);
 
   const getSavedImages = async () => {
     try {
-      const result = await axios.get(`${API_URL}/images`);
+      const result = await axios.get(`${API_URL}/images`, { headers: {"Authorization" : `Bearer ${token}`} });
       setImages(result.data || []);
       setLoader(false);
-      toast.success("Saved Images Downloaded!", {
+      toast.success("Login Succesful!", {
         toastId: "custom-id-yes"});
     } catch (error) {
       console.log(error);
@@ -33,9 +39,13 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    getSavedImages();
-  }, []);
+  // useEffect(() => {
+  //   getSavedImages();
+  // }, []);
+
+  useMemo (() => {
+    if(token) getSavedImages();
+  }, [token]);
 
   const handleSearchSubmit = async (event) => {
     event.preventDefault();
@@ -83,7 +93,7 @@ function App() {
     imageToSave.saved = true;
 
     try {
-      const result = await axios.post(`${API_URL}/images`, imageToSave);
+      const result = await axios.post(`${API_URL}/images`, imageToSave, { headers: {"Authorization" : `Bearer ${token}`} });
       if (result.data?.inserted_id) {
         setImages(
           images.map((image) =>
@@ -99,6 +109,16 @@ function App() {
   };
   //console.log(word);
   //console.log(UNSPLASH_KEY);
+  if(!token) {
+    return (<div>
+              <Header title="Photo Gallery" />
+              {isSignUped ? (
+                <Login setToken={setToken} setIsSignUped={setIsSignUped} />
+              ) : (
+              <SignUp setIsSignUped={setIsSignUped}/>)}
+            </div>);
+  }
+
   return (
     <div>
       <Header title="Photo Gallery" />

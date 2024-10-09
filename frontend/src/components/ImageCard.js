@@ -19,7 +19,7 @@ const ImageCard = ({ image, deleteImage, saveImage }) => {
           </Card.Body>
           <Card.Footer className="text-center">{
             image.user.portfolio_url && image.user.name ?
-              (<Nav.Link class="link-primary" href={image.user.portfolio_url} target="_blank">{image.user.name}</Nav.Link>
+              (<Nav.Link className="link-primary" href={image.user.portfolio_url} target="_blank">{image.user.name}</Nav.Link>
               ) : (image.user.name || "No author name")            
             }
             </Card.Footer>
