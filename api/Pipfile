@@ -9,6 +9,7 @@ requests = "*"
 python-dotenv = "*"
 flask-cors = "*"
 pymongo = "*"
+flask-jwt-extended = "*"
 
 [dev-packages]
 
