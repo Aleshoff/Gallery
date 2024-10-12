@@ -9,8 +9,8 @@ const API_URL = process.env.REACT_APP_API_URL || "https://alolprojectspace.com";
 
 const logingStyle = { 
   position: "absolute", 
-  top: "calc(25%)", 
-  left : "calc(40%)"
+   top: "calc(25%)", 
+   left : "calc(50% - 19rem)"
 };
 
 
@@ -21,6 +21,15 @@ const loginUser = async (credentials) => {
     return result.data;
   } catch (error) {
     console.log(error);
+  }
+};
+
+const showPassword = () => {
+  var x = document.getElementById("showPassword");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
   }
 };
 
@@ -55,7 +64,7 @@ export default function Login({ setToken, setIsSignUped }) {
         </Container>
       </Navbar>
       <Form onSubmit={handleSubmit} style={logingStyle}>
-        <h3>Please Log In</h3>
+        <h3 align="center">Please Log In</h3>
         <br />
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
           <Form.Label column sm={5}>
@@ -80,6 +89,7 @@ export default function Login({ setToken, setIsSignUped }) {
           </Form.Label>
           <Col sm={12}>
             <Form.Control
+              id="showPassword"
               type="password"
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
@@ -87,6 +97,13 @@ export default function Login({ setToken, setIsSignUped }) {
           </Col>
         </Form.Group>
         <br />
+
+        <Form.Group className="mb-3">
+        <Form.Check
+          label="Show password"
+          onClick={showPassword}
+        />
+      </Form.Group>
 
         <Form.Group as={Row} className="col-md-12 text-center">
           <Col sm={{ span: 10, offset: 2 }}>

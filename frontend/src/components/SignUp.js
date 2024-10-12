@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { Button, Form, Col, Row } from "react-bootstrap";
+import { Button, Form, Col, Row, Navbar, Container } from "react-bootstrap";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const API_URL = process.env.REACT_APP_API_URL || "https://alolprojectspace.com";
 
-const logingStyle = { 
+const signUpStyle = { 
   position: "absolute", 
   top: "calc(25%)", 
-  left : "calc(40%)"
+  left : "calc(50% - 22rem)"
 };
 
 
@@ -21,6 +21,18 @@ const signUpUser = async (credentials) => {
   } catch (error) {
     console.log(error);
     toast.error(error.message);
+  }
+};
+
+const showPassword = () => {
+  var x = document.getElementById("showPassword1");
+  var y = document.getElementById("showPassword2");
+  if (x.type === "password") {
+    x.type = "text";
+    y.type = "text";
+  } else {
+    x.type = "password";
+    y.type = "password";
   }
 };
 
@@ -52,10 +64,21 @@ export default function SignUp({ setIsSignUped }) {
     }
   };
 
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setIsSignUped(true);
+  };
+
   return (
     <div>
-      <Form onSubmit={handleSubmit} style={logingStyle}>
-        <h3>Please Sign Up</h3>
+      <br />
+      <Navbar  data-bs-theme="light" >
+        <Container className="justify-content-end">
+          <Button  variant="link" size="lg" onClick={handleLogin}>Login</Button>
+        </Container>
+      </Navbar>
+      <Form onSubmit={handleSubmit} style={signUpStyle}>
+        <h3 align="center">Please Sign Up</h3>
         <br />
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
           <Form.Label column sm={5}>
@@ -64,7 +87,7 @@ export default function SignUp({ setIsSignUped }) {
           <Col sm={12}>
             <Form.Control
               type="email"
-              placeholder="Email"
+              placeholder="example@mail.com"
               onChange={(e) => setUserName(e.target.value)}
             />
           </Col>
@@ -80,8 +103,9 @@ export default function SignUp({ setIsSignUped }) {
           </Form.Label>
           <Col sm={12}>
             <Form.Control
+              id="showPassword1"
               type="password"
-              placeholder="Password"
+              placeholder="at least 1 number and 8 symbols"
               onChange={(e) => setPassword2(e.target.value)}
             />
           </Col>
@@ -97,6 +121,7 @@ export default function SignUp({ setIsSignUped }) {
           </Form.Label>
           <Col sm={12}>
             <Form.Control
+              id="showPassword2"
               type="password"
               placeholder="Confirm Password"
               onChange={(e) => setPassword(e.target.value)}
@@ -104,6 +129,13 @@ export default function SignUp({ setIsSignUped }) {
           </Col>
         </Form.Group>
         <br />
+
+        <Form.Group className="mb-3">
+        <Form.Check
+          label="Show password"
+          onClick={showPassword}
+        />
+      </Form.Group>
 
         <Form.Group as={Row} className="col-md-12 text-center">
           <Col sm={{ span: 10, offset: 2 }}>
