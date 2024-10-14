@@ -154,26 +154,26 @@ function App() {
             setWord={setWord}
             handleSubmit={handleSearchSubmit}
           />
+          <Container className="mt-4">
+            {images.length ? (
+              <Row xs={1} md={2} lg={3}>
+                {images.map((image, i) => (
+                  <Col key={i} className="pb-3">
+                    <ImageCard
+                      image={image}
+                      deleteImage={handleDeleteImage}
+                      saveImage={handleSavedImage}
+                    />
+                  </Col>
+                  
+                ))}
+              </Row>
+            ) : (
+              <Welcome />
+            )}
+            <Navbar style={{ maxWidth: "20rem", height: "4rem" }}/>
+          </Container>
           <Navbar>
-            <Container className="mt-4" >
-              {images.length ? (
-                <Row xs={1} md={2} lg={3}>
-                  {images.map((image, i) => (
-                    <Col key={i} className="pb-3">
-                      <ImageCard
-                        image={image}
-                        deleteImage={handleDeleteImage}
-                        saveImage={handleSavedImage}
-                      />
-                    </Col>
-                  ))}
-                </Row>
-              ) : (
-                <Welcome />
-              )}
-            </Container>
-          </Navbar>
-          <Navbar >
             <Container>
               <Footer />
             </Container>
