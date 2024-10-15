@@ -173,7 +173,7 @@ function App() {
             )}
             <Navbar style={{ maxWidth: "20rem", height: "4rem" }}/>
           </Container>
-          <Navbar>
+          <Navbar fixed="bottom">
             <Container>
               <Footer />
             </Container>
